@@ -1,12 +1,12 @@
-/home/DeepDocking/projects                         % Project folder
-protein_test_automated                               % Project name
-/home/DeepDocking/docking_grid/msba_pocket_8.oe          % Receptor
-/home/DeepDocking/library_prepared_fp         % Morgan fingerprints
-/home/DeepDocking/library_prepared                % Prepared smiles
-FRED                                                 % FRED docking
-24                                 % Number of models to be trained
-1000000                                   % Molecular sampling size
-4                                               % Optimal threading 
-32                                                  % Max threading
-500                                                      % Max jobs
-20                                                       % Max GPUs
+/home/DeepDocking/projects                                  % Project folder
+protein_test_automated                                      % Project name
+/home/DeepDocking/docking_grid/binding_pocket.oedu          % Receptor
+/home/DeepDocking/library_prepared_fp                       % Morgan fingerprints
+/home/DeepDocking/library_prepared                          % Prepared smiles
+FRED                                                        % FRED docking
+24                                                          % Number of models to be trained
+1000000                                                     % Molecular sampling size
+4                                                           % Optimal threading 
+32                                                          % Max threading
+500                                                         % Max jobs
+20                                                          % Max GPUs
