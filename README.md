@@ -4,6 +4,10 @@ This is an adaptation of the original DeepDocking protocol developed by Gentile 
 This adapted protocol is made for automated fred-based DeepDocking on HPC' with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. 
 
 To setup this adapted protocol, the user should first setup a DeepDocking directory, within their home directory, containing the subdiretories as highlighted in figure 1. The user should then make a log.txt file containing the desired parameters for running DeepDocking along with information about the users HPC configuration. An example of this is shown in the log.txt file within this repository. 
+
+![Alt text](workspace.png?raw=true "Title")
+**Figure 1** Workspace to be set up for running the adapted DeepDockign protocol.
+
 Once setup has been completed the following steps can be followed. These largely follow the same steps as the orignal DeepDocking protocol, so for elaboration on parameters/methodology refer to [2]:
 
 **Stage 1: library processing**
@@ -42,7 +46,7 @@ in Fig. 5
 
 7. The smile library was then sampled for model training by running the modified script:
     ```
-    $ qsub -l select=1:ncpus=20:mem=20gb -v iteration="1",cpus="20",project_dir="projects",project_name="protein_test_automated",mol="1000000"environment="dd-env" DD_protocol/phase_1.sh
+    $ qsub -v iteration="1",cpus="20",project_dir="projects",project_name="protein_test_automated",mol="1000000"environment="dd-env" DD_protocol/phase_1.sh
     ```
     
 **Stage 4: Ligand preparation for Fred Docking**
@@ -50,13 +54,13 @@ in Fig. 5
 8. Smiles were converted to the .oeb.gz format as best suited for Fred docking using the
 script:
     ```
-    $ qsub -v iteration="1",t_node="1",project_dir="projects",project_name="protein_test_automated" DD_protocol/phase_2_fred.sh
+    $ qsub -v iteration="1",project_dir="projects",project_name="protein_test_automated" DD_protocol/phase_2_fred.sh
     ```
 **Stage 5: Fred docking**
 
 9. Fred docking on the sampled molecules was carried out running the script:
     ```
-    $ qsub -v iteration="1",t_node="4",project_dir="projects", project_name="protein_test_automated" DD_protocol/phase_3_fred.sh
+    $ qsub -v iteration="1",project_dir="projects", project_name="protein_test_automated" DD_protocol/phase_3_fred.sh
     ```
 **Stage 6: DD_model training/evaluation**
 
@@ -82,8 +86,7 @@ script:
     ```
 **Stage 8 Successive iterations**
 
-12. Step 7-11 were repeated, changing the iteration number accordingly for a total of 5
-iterations
+12. Step 7-11 were repeated, changing the iteration number accordingly till the the final desired iteration has been run
 
 **Stage 9. Final extraction**
 
