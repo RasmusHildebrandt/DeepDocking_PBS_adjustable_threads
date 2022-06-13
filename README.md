@@ -12,53 +12,48 @@ Once setup has been completed the following steps can be followed. These largely
 
 **Stage 1: library processing**
 
-1. Smiles were concatenated and then split into a number of files equal to themaximum
+1. Smiles should be concatenated and then split into a number of files equal to themaximum
 number of jobs possible for the configuration as specified in the log.txt file. This process
 was automated using the script:
     ```
-    $ qsub -v file_path="~/DeepDocking" optimize_max_jobs
+    $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/optimize_max_jobs
     ```
-2. Tautomers and isomers were generated in preparation of morgan fingerprint generation
+2. Tautomers and isomers are generated in preparation of morgan fingerprint generation
 by running the script:
     ```
     $ qsub -v file_path="~/DeepDocking" DD_protocl/utilities/compute_states.sh
     ```
-3. 1024-bit Morgan fingerprints corresponding to each smile were generated running the
+3. 1024-bit Morgan fingerprints corresponding to each smile were are generatingrunning the
 script:
     ```
     $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/compute_morgan_fp.sh
     ```
 **Stage 2: Receptor preparation**
 
-4. The Outward facing MsbA structure (PDB accession: 3B60) was opened in OpenEye
-OeDOCKING 4.1.1.0 GUI (OpenEye Scientific Software 2021). The residues within ligand
-binding site 8 (LB8), determined with the P2Rank ligand binding search, were selected.
-A search box was centered at the predicted binding site, encompassing all involved
-residues
+4. Using OpenEye OeDOCKING 4.1.1.0 GUI, a search box should be set up in the desired location of the receptor
 
-5. Site shape potential was calculated using the balanced setting and no further constraints
-were used.
+5. Site shape potentials can the be generated using prefered settings.
 
-6. The finalised open design unit was uploaded to the docking_grid directory as indicated
-in Fig. 5
+6. The finalised open design unit should then be uploaded to the docking_grid directory as indicated
+in Fiure 1.
 
 **Stage 3: Sampling for DD_model training**
 
-7. The smile library was then sampled for model training by running the modified script:
+7. The smile library is sampled for model training by running the modified script:
     ```
     $ qsub -v iteration="1",cpus="20",project_dir="projects",project_name="protein_test_automated",mol="1000000"environment="dd-env" DD_protocol/phase_1.sh
     ```
     
 **Stage 4: Ligand preparation for Fred Docking**
 
-8. Smiles were converted to the .oeb.gz format as best suited for Fred docking using the
+8. Smiles are to be converted to the .oeb.gz format as best suited for Fred docking by using the
 script:
     ```
     $ qsub -v iteration="1",project_dir="projects",project_name="protein_test_automated" DD_protocol/phase_2_fred.sh
     ```
 **Stage 5: Fred docking**
 
-9. Fred docking on the sampled molecules was carried out running the script:
+9. Fred docking on the sampled molecules can then carried out running the script:
     ```
     $ qsub -v iteration="1",project_dir="projects", project_name="protein_test_automated" DD_protocol/phase_3_fred.sh
     ```
@@ -66,13 +61,13 @@ script:
 
 10. Model training depending on the iteration. In the first iteration, progressive evaluation is carried out to determine the optimal sampling size (a). In the following iterations, regular training is carried out on the specified optimal sample size 1b)
      
-     a. Progressive evaluation was carried out out running the script:
+     a. Progressive evaluation can be carried out running the script:
      
     ```
      $ qsub -v eval\_l="Home_PathDeepDocking/projects",project_n="protein_test_automated",percent_fm="1",percent_lm="0.01",recall_v="0.90",max_s="1000000",min_s="250000",n_s="4",time="00-20:00",en="dd-env" DD_protocol/progressive_evaluation.sh
     ```
       
-    b. Regular training was carried out running the modified script:
+    b. Regular training can be carried out by running the modified script:
   
     ```
     $ qsub -v iteration="3",t_pos="3",eval_location="Home_Path/DeepDocking/projects",project_name="protein_test_automated",last_iteration="5",percent_first="1",percent_last="0.01",rec="0.90",time="00-20:00",env="dd-env" DD_protocol/phase_4.sh
@@ -80,23 +75,23 @@ script:
     
 **Stage 7: Model inference**
 
-11. Using the best model from stage 6, predicted hits were infered by running the script:
+11. Using the best model from stage 6, predicted hits are infered by running the script:
     ```
-    $ qsub -v iteration="5",eval_l="Home_Path/DeepDocking/projects",project_n="protein_test_automated",recall_v="0.90",en="dd-env" DD_protocol/phase_5.sh
+    $ qsub -v iteration="1",eval_l="Home_Path/DeepDocking/projects",project_n="protein_test_automated",recall_v="0.90",en="dd-env" DD_protocol/phase_5.sh
     ```
 **Stage 8 Successive iterations**
 
-12. Step 7-11 were repeated, changing the iteration number accordingly till the the final desired iteration has been run
+12. Step 7-11  repeated, changing the iteration number accordingly till the the final desired iterations has been run
 
 **Stage 9. Final extraction**
 
 13. Having enriched the database to a number that was computationally feasible to dock with FRED (McGann 2011), SMILES and their virtual hit-likenesses were extracted by running the script:
     ```
-    $ -v file_path="~/DeepDocking" optimize_max_jobs
+    $ -v file_path="~/DeepDocking" DD_protocol/utilities/final_extraction.sh
     ```
 **Stage 10: Final docking**
 
-14. Final docking was carried out in the same manner as described in section 2.2, step 2-
+14. Final docking can then be carried out using the standard FRED procedure.
 
 
 
