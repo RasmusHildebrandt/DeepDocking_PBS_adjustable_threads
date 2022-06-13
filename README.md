@@ -1,7 +1,7 @@
 # Adapted DeepDocking protocol for PBS-type HPC schedulers adjustable for the number of threads permissable with the users hardware configuration
 This is an adaptation of the original DeepDocking protocol developed by Gentile et al. 2022 [1,2], made under the MIT license agreement.
 
-This adapted protocol is made for automated fred-based DeepDocking on HPC' with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. 
+This adapted protocol is made for automated fred-based DeepDocking on HPC' with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. Still being under development, future versions will include SLURM configurations in addition to the ability to use GLIDE for docking.
 
 To setup this adapted protocol, the user should first setup a DeepDocking directory, within their home directory, containing the subdiretories as highlighted in figure 1. The user should then make a log.txt file containing the desired parameters for running DeepDocking along with information about the users HPC configuration. An example of this is shown in the log.txt file within this repository. 
 
@@ -98,7 +98,8 @@ script:
 **Awknoledgements**
 This adapted protocol was created unter the terms of the MIT license agreement and full credits go toward Gentile et. al for developing the original protocol. This adapted protocol was made as part of a research project undertaken under supervision by Dr. Konstantinos Beis at the Beis Group at the Harwell Research Complex, Didcot, UK. 
 
-**Referencing**
+
+**Referencesg**
 
 [1]Gentile, F. et al. Deep Docking: A Deep Learning Platform for Augmentation of Structure Based Drug Discovery. ACS Cent. Sci. 6, 939–949 (2020)__
 
