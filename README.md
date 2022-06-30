@@ -1,9 +1,9 @@
 # Adapted DeepDocking protocol for PBS-type HPC schedulers adjustable for the number of threads permissable with the users hardware configuration
 This is an adaptation of the original DeepDocking protocol developed by Gentile et al. 2022 [1,2], made under the MIT license agreement.
 
-This adapted protocol is made for automated fred-based DeepDocking on HPC' with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. Still being under development, future versions will include SLURM configurations in addition to the ability to use GLIDE for docking.
+This adapted protocol is made for automated fred-based DeepDocking on HPCs with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. Still being under development, future versions will include SLURM configurations in addition to the ability to use GLIDE for docking.
 
-To setup this adapted protocol, the user should first setup a DeepDocking directory, within their home directory, containing the subdiretories as highlighted in figure 1. The user should then make a log.txt file containing the desired parameters for running DeepDocking along with information about the users HPC configuration. An example of this is shown in the log.txt file within this repository. 
+To setup this adapted protocol, first you will have to create a DeepDocking directory, within their home directory, containing the subdiretories as highlighted in figure 1. The user should then make a log.txt file containing the desired parameters for running DeepDocking along with information about the users HPC configuration. An example of this is shown in the log.txt file within this repository. 
 
 ![Alt text](workspace.png?raw=true "Title")
 **Figure 1** Workspace to be set up for running the adapted DeepDockign protocol.
@@ -12,8 +12,8 @@ Once setup has been completed the following steps can be followed. These largely
 
 **Stage 1: library processing**
 
-1. Smiles should be concatenated and then split into a number of files equal to themaximum
-number of jobs possible for the configuration as specified in the log.txt file. This process
+1. Smiles should be concatenated and then split into a number of files equal to the maximum
+number of array jobs possible for the configuration as specified in the log.txt file. This process
 was automated using the script:
     ```
     $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/optimize_max_jobs
