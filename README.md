@@ -23,7 +23,7 @@ by running the script:
     ```
     $ qsub -v file_path="~/DeepDocking" DD_protocl/utilities/compute_states.sh
     ```
-3. 1024-bit Morgan fingerprints corresponding to each smile were are generatingrunning the
+3. 1024-bit Morgan fingerprints corresponding to each smile were are generated running the
 script:
     ```
     $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/compute_morgan_fp.sh
