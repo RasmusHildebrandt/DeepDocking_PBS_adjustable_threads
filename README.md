@@ -85,7 +85,7 @@ script:
 
 12. Having enriched the database to a number that is computationally feasible to dock with FRED, SMILES and their virtual hit-likenesses can be extracted by running the script:
     ```
-    $ -v file_path="~/DeepDocking" DD_protocol/utilities/final_extraction.sh
+    $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/final_extraction.sh
     ```
 **Stage 10: Final docking**
 
