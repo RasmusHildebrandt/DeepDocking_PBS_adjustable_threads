@@ -1,9 +1,10 @@
 #!/bin/bash
+
 #PBS -l walltime=12:00:00
 #PBS -l select=1:ncpus=1:mem=2gb
-#PBS -J 0-255
 
-cd $PBS_O_WORKDIR
+
+cd $file_path
 
 
 name_in=$(echo library/smiles_all_$PBS_ARRAY_INDEX.smi | cut -d'.' -f1)
@@ -27,3 +28,6 @@ mv $name_in'_'states.smi library_prepared/$name_out'.'txt
 end=`date +%s`
 runtime=$((end-start))
 echo $runtime
+
+
+
