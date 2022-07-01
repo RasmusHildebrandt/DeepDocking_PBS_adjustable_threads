@@ -6,7 +6,7 @@ This adapted protocol is made for automated fred-based DeepDocking on HPCs with 
 To setup this adapted protocol, first you will have to create a DeepDocking directory, within their home directory, containing the subdiretories as highlighted in figure 1. The user should then make a log.txt file containing the desired parameters for running DeepDocking along with information about the users HPC configuration. An example of this is shown in the log.txt file within this repository. 
 
 ![Alt text](workspace.png?raw=true "Title")
-**Figure 1** Workspace to be set up for running the adapted DeepDockign protocol.
+**Figure 1** Workspace to be set up for running the adapted DeepDocking protocol. Here shown with an example for docking of MsbA
 
 Once setup has been completed the following steps can be followed. These largely follow the same steps as the orignal DeepDocking protocol, so for elaboration on parameters/methodology refer to [2]:
 
