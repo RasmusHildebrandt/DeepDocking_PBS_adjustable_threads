@@ -94,7 +94,8 @@ script:
 
 
 **Awknoledgements**
-This adapted protocol was created unter the terms of the MIT license agreement and full credits go toward Gentile et. al for developing the original protocol. This adapted protocol was made as part of a research project undertaken under supervision by Dr. Konstantinos Beis at the Beis Group at the Harwell Research Complex, Didcot, UK. 
+This adapted protocol was created under the terms of the MIT license agreement using the DeepDocking protocol by  Gentile et al. [2] 
+This protocol was furthermore made as part of a research project undertaken under supervision by Dr. Konstantinos Beis at the Beis Group at the Harwell Research Complex, Didcot, UK. 
 
 
 **References**
