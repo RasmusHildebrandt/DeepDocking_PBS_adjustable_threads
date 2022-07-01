@@ -1,9 +1,8 @@
 #!/bin/bash
 #PBS -l walltime=48:00:00
-#PBS -l select=1:ncpus=4:mem=24gb:ngpus=1:gpu_type=RTX6000
 #PBS -N progressive_evaluation
 
-cd $PBS_O_WORKDIR
+cd $file_path
 module load anaconda3/personal
 
 eval_location=$eval_l
@@ -20,8 +19,8 @@ env=${en}
 
 source ~/.bashrc
 
-morgan_path=$(sed -n '4p' $eval_location'/'$project_name'/'logs.txt)
-n_mol_vt=$(sed -n '8p' $eval_location'/'$project_name'/'logs.txt)
+morgan_path=$(sed -n '4p' $file_path/projects/$project_name/logs.txt)
+n_mol_vt=$(sed -n '8p' $file_path/projects/$project_name/logs.txt)
 
 # Calculate the step size
 let step_size=($max_size-$min_size)/$(expr $n_steps - 1)
@@ -30,6 +29,7 @@ evaluation(){
   # Run the evaluation at each sample size
   echo ">> Running iteration $i with sample size $size"
   qsub -v iteration="1",p_pos="3",eval_l2="$eval_location",project_n2="$project_name",gpu_p2="$name_gpu_partition",next_it="2",percent_fm2="$percent_first_mols",percent_lm2="$percent_last_mols",recall_v2="$recall_value",tim2="$time",en="$env",size2="$size" DD_protocol/phase_4_evaluator.sh
+
 
   # Wait for phase 4 to complete
   python3 -u DD_protocol/scripts_2/progressive_evaluator.py --sample_size $size --project_name $project_name --project_path $eval_location --mode wait_phase_4
