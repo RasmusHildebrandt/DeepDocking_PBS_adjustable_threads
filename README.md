@@ -16,7 +16,7 @@ Once setup has been completed the following steps can be followed. These largely
 number of array jobs possible for the configuration as specified in the log.txt file. This process
 can be  automated using the script:
     ```
-    $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/optimize_library
+    $ qsub -v file_path="~/DeepDocking" DD_protocol/utilities/optimize.sh
     ```
 2. Tautomers and isomers are generated in preparation of morgan fingerprint generation
 by running the script:
