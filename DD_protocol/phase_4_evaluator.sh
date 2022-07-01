@@ -1,24 +1,24 @@
 #!/bin/bash
 #PBS -l walltime=48:00:00
-#PBS -l select=1:ncpus=3:mem=6gb
+#PBS -l select=1:ncpus=1:mem=2gb
 #PBS -N phase_4_eval
 
 
-cd $PBS_O_WORKDIR
+cd $file_path
 module load anaconda3/personal
 env=${en}
 time=${tim2}
 
 source ~/.bashrc
-conda activate $env
+conda activate dd-env
 
-file_path=$(sed -n '1p' $eval_l2/$project_n2/logs.txt)
-protein=$(sed -n '2p' $eval_l2/$project_n2/logs.txt)
+file_path=$(sed -n '1p' $file_path/projects/$project_name/logs.txt)
+protein=$(sed -n '2p' $file_path/projects/$project_name/logs.txt)
 
-morgan_directory=$(sed -n '4p' $eval_l2/$project_n2/logs.txt)
-smile_directory=$(sed -n '5p' $eval_l2/$project_n2/logs.txt)
-nhp=$(sed -n '7p' $eval_l2/$project_n2/logs.txt) # number of hyperparameters
-sof=$(sed -n '6p' $eval_l2/$project_n2/logs.txt) # The docking software used
+morgan_directory=$(sed -n '4p' $file_path/projects/$project_name/logs.txt
+smile_directory=$(sed -n '5p' $file_path/projects/$project_name/logs.txt)
+nhp=$(sed -n '7p' $file_path/projects/$project_name/logs.txt) # number of hyperparameters
+sof=$(sed -n '6p' $file_path/projects/$project_name/logs.txt) # The docking software used
 
 rec=$recall_v2
 
@@ -52,7 +52,7 @@ else
 fi
 
 echo "Creating simple jobs"
-python DD_protocol/scripts_2/simple_job_models.py -n_it $iteration -mdd $morgan_directory -time $time -file_path $file_path/$protein -nhp $nhp -titr $next_it -n_mol $num_molec -pfm $percent_fm2 -plm $percent_lm2 -ct $rec -gp $part_gpu -tf_e $env -isl $last
+python DD_protocol/scripts_2/simple_job_models.py -n_it $iteration -mdd $morgan_directory -time $time -file_path $file_path/$protein -nhp $nhp -titr $next_it -n_mol $num_molec -pfm $percent_fm2 -plm $per$
 python3 -u DD_protocol/scripts_2/progressive_evaluator.py --sample_size ${size2} --project_name $protein --project_path $file_path --mode add_train_num_mol
 
 cd $file_path/$protein/iteration_$iteration
