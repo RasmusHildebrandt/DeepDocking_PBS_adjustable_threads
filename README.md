@@ -1,4 +1,4 @@
-# Adapted DeepDocking protocol for PBS-type HPC schedulers adjustable for the number of threads permissable with the users hardware configuration
+# Adapted DeepDocking FRED automated protocol for PBS-type HPC schedulers adjustable for the number of threads permissable with the users hardware configuration
 This is an adaptation of the original DeepDocking protocol developed by Gentile et al. 2022 [1,2], made under the MIT license agreement.
 
 This adapted protocol is made for automated fred-based DeepDocking on HPCs with PBS type schedulers. It builds on the orignal protocol, by automatically adjusting the computational resources requested to the optimal hardware configuration for the user. Still being under development, future versions will include SLURM configurations in addition to the ability to use GLIDE for docking.
@@ -39,7 +39,7 @@ in Figure 1.
 
 6. The smile library should then be sampled for model training by running the modified script:
     ```
-    $ qsub -v iteration="1",file_path="~/DeepDocking",project_name="protein_test_automated",mol="1000000" DD_protocol/phase_1.sh
+    qsub -v iteration="6",project_dir="{YOUR_PROJECT_DIR}",project_name="protein_test_automated",mol="1000000",cpus="32" DD_protocol/phase_1.sh
     ```
     
 **Stage 4: Ligand preparation for Fred Docking**
@@ -47,13 +47,13 @@ in Figure 1.
 7. Smiles are to be converted to the .oeb.gz format as best suited for Fred docking. This is achieved by running the
 script:
     ```
-    $ qsub -v iteration="1",t_node="1",file_path="~/DeepDocking",project_name="protein_test_automated" DD_protocol/phase_2_fred.sh
+    $ qsub -v iteration="1",t_node="4",project_dir="{YOUR_PROJECT_DIR}",project_name="protein_test_automated" DD_protocol/phase_2_fred.sh
     ```
 **Stage 5: Fred docking**
 
 8. Fred docking on the sampled molecules can then carried out running the script:
     ```
-    $ qsub -v iteration="1",project_dir="projects",file_path="~/DeepDocking",project_name="protein_test_automated" DD_protocol/phase_3_fred.sh
+    $  qsub -v iteration="1",t_node="4",project_dir="{YOUR_PROJECT_DIR}",project_name="protein_test_automated" DD_protocol/phase_3_fred.sh
     ```
 **Stage 6: DD_model training/evaluation**
 
@@ -68,14 +68,14 @@ script:
     b. Regular training can be carried out by running the modified script:
   
     ```
-    $ qsub -v iteration="1",t_pos="3",file_path="~/DeepDocking",project_name="protein_test_automated",last_iteration="5",percent_first="1",percent_last="0.01",rec="0.90",time="00-20:00" DD_protocol/phase_4.sh
+    $ qsub -v iteration="1",t_pos="3",eval_location=""{YOUR_PROJECT_DIR}",project_name="protein_test_automated",part_gpu="gpu-partition",last_iteration="7",percent_first="1",percent_last="0.01",rec="0.85",time="00-20:00",env="dd-env" DD_protocol/phase_4.sh
     ```
     
 **Stage 7: Model inference**
 
 10. Using the best model from stage 6, predicted hits are infered by running the script:
     ```
-    $ qsub -v iteration="1",file_path="~/DeepDocking",project_n="protein_test_automated",recall_v="0.90" DD_protocol/phase_5.sh
+    $ qsub -v iteration="6",eval_l="{YOUR_EVAL LOCATION}}",project_n="protein_test_automated",part_gpu="gpu-partition",recall_v="0.90",en="dd-env" DD_protocol/phase_5.sh
     ```
 **Stage 8 Successive iterations**
 
